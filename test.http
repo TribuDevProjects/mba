@@ -1,0 +1,120 @@
+# Selecciona el entorno en VS Code (esquina inferior derecha)
+# Entornos disponibles: local, development, production
+# Los tokens están en http-client.private.env.json
+
+### Health check
+GET {{host}}/health
+
+### Info general /mba
+GET {{host}}/mba
+Authorization: Bearer {{token}}
+
+###########################################################
+# Carl's Jr 
+###########################################################
+
+### Info Carl's Jr
+GET {{host}}/mba/carlsjr/
+Authorization: Bearer {{token}}
+
+### Analisis Carl's Jr - producto individual
+POST {{host}}/mba/carlsjr/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "product": "FAMOUS STAR"
+}
+
+### Analisis Carl's Jr - multi producto
+POST {{host}}/mba/carlsjr/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "product": "WHOPPER JR, PAPAS GRANDES"
+}
+
+###########################################################
+# Multicarnes
+###########################################################
+
+### Info Multicarnes
+GET {{host}}/mba/multicarnes/
+Authorization: Bearer {{token}}
+
+### Analisis Multicarnes
+POST {{host}}/mba/multicarnes/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "product": "Arrachera"
+}
+
+###########################################################
+# Karzo
+###########################################################
+
+### Info Karzo
+GET {{host}}/mba/karzo/
+Authorization: Bearer {{token}}
+
+### Analisis Karzo
+POST {{host}}/mba/karzo/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "product": "Pizza"
+}
+
+###########################################################
+# Cypress
+###########################################################
+
+### Info Cypress
+GET {{host}}/mba/cypress/
+Authorization: Bearer {{token}}
+
+### Analisis Cypress
+POST {{host}}/mba/cypress/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "product": "Pizza"
+}
+
+###########################################################
+# Backward-compatible /mba (con campo customer)
+###########################################################
+
+### Analisis via /mba legacy
+POST {{host}}/mba
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "customer": "carlsjr",
+    "product": "WHOPPER JR"
+}
+
+### Token invalido (debe dar 401)
+POST {{host}}/mba/carlsjr/
+Content-Type: application/json
+Authorization: Bearer token_invalido
+
+{
+    "product": "WHOPPER JR"
+}
+
+### Customer invalido via /mba legacy (debe dar 400)
+POST {{host}}/mba
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "customer": "noexiste",
+    "product": "algo"
+}
