@@ -23,7 +23,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "product": "FAMOUS STAR"
+    "product": "papas"
 }
 
 ### Analisis Carl's Jr - multi producto
@@ -87,18 +87,8 @@ Authorization: Bearer {{token}}
 }
 
 ###########################################################
-# Backward-compatible /mba (con campo customer)
+# Pruebas de Seguridad y Errores
 ###########################################################
-
-### Analisis via /mba legacy
-POST {{host}}/mba
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-    "customer": "carlsjr",
-    "product": "WHOPPER JR"
-}
 
 ### Token invalido (debe dar 401)
 POST {{host}}/mba/carlsjr/
@@ -109,12 +99,19 @@ Authorization: Bearer token_invalido
     "product": "WHOPPER JR"
 }
 
-### Customer invalido via /mba legacy (debe dar 400)
-POST {{host}}/mba
+### Sin token (debe dar 401)
+POST {{host}}/mba/carlsjr/
+Content-Type: application/json
+
+{
+    "product": "algo"
+}
+
+### Producto no encontrado (debe dar 404)
+POST {{host}}/mba/carlsjr/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "customer": "noexiste",
-    "product": "algo"
+    "product": "producto_que_no_existe_xyz123"
 }

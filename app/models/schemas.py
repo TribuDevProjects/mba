@@ -1,13 +1,17 @@
 from pydantic import BaseModel
 
 
-class MBARequest(BaseModel):
-    customer: str
-    product: str
-
-
 class ClientMBARequest(BaseModel):
-    """Request para endpoints por cliente (no necesita campo customer)."""
+    """Request para endpoints por cliente.
+    
+    Cada cliente tiene su endpoint dedicado (/mba/{customer}/).
+    Búsqueda parcial case-insensitive por defecto.
+    Soporta múltiples productos separados por coma.
+    
+    Examples:
+        {"product": "diablo"}
+        {"product": "papas, burger, malteada"}
+    """
     product: str
 
 

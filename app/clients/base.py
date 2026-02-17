@@ -74,12 +74,13 @@ class BaseClient:
                     min_support=config.min_support,
                     transform_fn=client.transform_data,
                     client_logger=client_logger,
+                    partial_match=True,  # Búsqueda parcial case-insensitive por defecto
                 )
 
                 if rules is None:
                     raise HTTPException(
                         status_code=status.HTTP_404_NOT_FOUND,
-                        detail="Algunos productos no se encontraron en la base de datos",
+                        detail=f"No se encontraron productos que coincidan con: {', '.join(product_names)}. La búsqueda es parcial y case-insensitive.",
                     )
                 return rules
             finally:
