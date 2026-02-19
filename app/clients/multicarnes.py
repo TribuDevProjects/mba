@@ -13,7 +13,7 @@ class MulticarnesClient(BaseClient):
     """
 
     def get_config(self) -> ClientConfig:
-        credentials = Variable.get("multicarnes")
+        credentials = Variable.get("multicarnes_warehouse")
         return ClientConfig(
             name=self.CUSTOMER_NAME,
             db_url=(
