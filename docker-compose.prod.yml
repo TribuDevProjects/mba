@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   mba-api:
-    image: tribundevprojects/mba:latest
+    image: ghcr.io/tribudevprojects/mba:latest
     container_name: mba-api
     ports:
       - "6161:8000"
