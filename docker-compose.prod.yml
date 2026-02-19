@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mba-api:
+    image: tribundevprojects/mba:latest
+    container_name: mba-api
+    ports:
+      - "6161:8000"
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - mba-logs:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 40s
+      retries: 3
+    networks:
+      - mba-network
+
+volumes:
+  mba-logs:
+    name: mba-logs
+
+networks:
+  mba-network:
+    driver: bridge

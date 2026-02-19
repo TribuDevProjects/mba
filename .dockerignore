@@ -38,7 +38,7 @@ pytest_cache/
 
 # Docker
 Dockerfile
-docker-compose.yml
+docker-compose*.yml
 .dockerignore
 
 # Misc
